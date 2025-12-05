@@ -15,6 +15,10 @@ function Book(name, author, pages, status) {
     }
 }
 
+Book.prototype.updateStatus = function(newStatus) {
+    this.status = newStatus;
+};
+
 function addBookToLibrary(name, author, pages, status) {
     const newBook = new Book(name, author, pages, status);
     newBook.info();
@@ -29,29 +33,72 @@ function printBooks(Library) {
 }
 
 
-Library.push(new Book("The Hobbit", "J.R.R. Tolkien", 310, "Read "));
-Library.push(new Book("1984", "George Orwell", 328, "Not Read "));
-printBooks(Library);
+function removeBookFromLibrary(bookId) {
+    const index = Library.findIndex((book) => book.id === bookId);
+    if (index !== -1) {
+        Library.splice(index,1);
+        displayBooks(Library);
+    }
+}
+
+function updatedBookStatus(bookId, newStatus) {
+    const book = Library.find((book) => book.id === bookId);
+    if (book) {
+        book.updateStatus(newStatus);
+        displayBooks(Library);
+    }
+}
+
 
 function displayBooks(Library) {
     const container = document.querySelector(".books-container");
-
-    container.innerHTML = " ";
-
+    container.innerHTML = "";
     Library.forEach((Book) => {
         const card = document.createElement("div");
         card.className = "book-card";
+        card.setAttribute("data-id", Book.id)
         card.innerHTML = `
+        <button class="delete-icon" data-id="${Book.id}">✕</button>
         <h2> ${Book.name} </h2>
         <p> Author: ${Book.author} </p>
         <p> Pages: ${Book.pages} </p>
         <p> Status: ${Book.status} </p>
+        <div class="book-actions">
+        ${Book.status === "Not Read" ? `<button class="mark-read" data-id="${Book.id}">Mark Read</button>` : `<button class="mark-unread" data-id="${Book.id}">Mark Unread</button> </div>`}
         `;
         container.appendChild(card)
     });
+
+    document.querySelectorAll(".delete-icon").forEach((button) => {
+        button.addEventListener("click", (event) => {
+            const bookId = event.target.getAttribute("data-id");
+            removeBookFromLibrary(bookId);
+        });
+    });
+
+    document.querySelectorAll(".mark-read").forEach((button) => {
+        button.addEventListener("click", (event) => {
+            const bookId = event.target.getAttribute("data-id");
+            updatedBookStatus(bookId, "Read");
+        });
+    });
+
+    document.querySelectorAll(".mark-unread").forEach((button) => {
+        button.addEventListener("click", (event) => {
+            const bookId = event.target.getAttribute("data-id");
+            updatedBookStatus(bookId, "Not Read");
+        });
+    });
+
+
 }
 
-displayBooks(Library);
+
+Library.push(new Book("The Hobbit", "J.R.R. Tolkien", 310, "Read"));
+Library.push(new Book("1984", "George Orwell", 328, "Not Read"));
+Library.push(new Book("1984", "George Orwell", 328, "Not Read"));
+printBooks(Library);
+
 
 // Dialog
 
