@@ -15,25 +15,16 @@ function Book(name, author, pages, status) {
     }
 }
 
-function addBookToLibrary() {
-
-    let userBook = prompt("Please enter book name:");
-    let userAuthor = prompt("Please enter author's name:");
-    let userPages = parseInt(prompt("Please enter number of pages:"));
-    let userStatus = prompt("Have you read the book? (Read, Not Read) :");
-
-    userInput = new Book(userBook, userAuthor, userPages, userStatus);
-
-    userInput.info();
-
-    Library.push(userInput);
+function addBookToLibrary(name, author, pages, status) {
+    const newBook = new Book(name, author, pages, status);
+    newBook.info();
+    Library.push(newBook);
+    displayBooks(Library);
 }
-
-// addBookToLibrary();
 
 function printBooks(Library) {
     for (const book of Library) {
-        console.log(book.info());
+        book.info();
     }
 }
 
@@ -41,3 +32,75 @@ function printBooks(Library) {
 Library.push(new Book("The Hobbit", "J.R.R. Tolkien", 310, "Read "));
 Library.push(new Book("1984", "George Orwell", 328, "Not Read "));
 printBooks(Library);
+
+function displayBooks(Library) {
+    const container = document.querySelector(".books-container");
+
+    container.innerHTML = " ";
+
+    Library.forEach((Book) => {
+        const card = document.createElement("div");
+        card.className = "book-card";
+        card.innerHTML = `
+        <h2> ${Book.name} </h2>
+        <p> Author: ${Book.author} </p>
+        <p> Pages: ${Book.pages} </p>
+        <p> Status: ${Book.status} </p>
+        `;
+        container.appendChild(card)
+    });
+}
+
+displayBooks(Library);
+
+// Dialog
+
+const dialog = document.querySelector("dialog");
+const showButton = document.querySelector("dialog + button");
+const closeButton = document.querySelector("dialog button");
+const form = document.querySelector("dialog form");
+
+// "Show the dialog" button opens the dialog modally
+showButton.addEventListener("click", () => {
+    dialog.showModal();
+});
+
+// "Close" button closes the dialog
+closeButton.addEventListener("click", () => {
+    dialog.close();
+});
+
+
+// Close dialog when clicking outside of it
+dialog.addEventListener("click", (event) => {
+  const dialogDimensions = dialog.getBoundingClientRect();
+  if (
+    event.clientX < dialogDimensions.left ||
+    event.clientX > dialogDimensions.right ||
+    event.clientY < dialogDimensions.top ||
+    event.clientY > dialogDimensions.bottom
+  ) {
+    dialog.close();
+  }
+});
+
+
+// Handle form Submission 
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const formData = new FormData(form)
+    const name = formData.get("bname");
+    const author = formData.get("aname");
+    const pages = formData.get("pages");
+    const status = formData.get("status");
+    addBookToLibrary(name,author,pages,status);
+    form.reset();
+    dialog.close();
+})
+
+// At the end of your main.js
+document.addEventListener("DOMContentLoaded", () => {
+    displayBooks(Library);
+});
+
+

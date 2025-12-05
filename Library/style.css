@@ -1,0 +1,139 @@
+
+/* My CSS */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+.book-card {
+  border: 1px solid #33333325;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+
+.books-container {
+  border: 2px solid #33333340;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0 auto;
+  padding: 20px;
+  flex-wrap: wrap; /* Allow cards to wrap to the next line */
+  width: 100%;
+  max-width: 800px; /* Optional: Limit the width for better readability */
+}
+
+.add-book {
+  /* border: 1px solid red; */
+  cursor: pointer;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 20px;
+  flex-wrap: wrap; /* Allow cards to wrap to the next line */
+  width: 100%;
+  max-width: 800px; /* Optional: Limit the width for better readability */
+}
+
+button {
+    padding: 8px 0;
+    border-radius: 8px;
+}
+
+dialog {
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    width: 500px;
+}
+
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+
+
+.input-container {
+    margin-bottom: 4px;
+}
+
+.input-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.status-container input[type="radio"]  {
+    margin-bottom: 0;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.status-container label[for="read"],
+.status-container label[for="not-read"] {
+    margin-bottom: 0;
+    margin-right: 15px;
+    vertical-align: middle;
+}
+
+/*
+  Josh's Custom CSS Reset
+  https://www.joshwcomeau.com/css/custom-css-reset/
+*/
+::before, *::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+input, button, textarea, select {
+  font: inherit;
+}
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+#root, #__next {
+  isolation: isolate;
+}

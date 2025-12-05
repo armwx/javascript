@@ -1,14 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="scripts/main.js"></script>
     <link rel="stylesheet" href="style.css">
+    <script defer src="scripts/main.js"></script>
     <title>Library Project.</title>
 </head>
+
 <body>
     <h1> Library Project </h1>
     <div class="books-container"> </div>
+
+<div class="add-book">
+    <dialog>
+        <form method="dialog">
+            <button autofocus>Close</button> <br>
+
+            <div class="input-container">
+                <label for="bname">Book Name:</label>
+                <input type="text" id="bname" name="bname" required><br>
+            </div>
+            <div class="input-container">
+                <label for="aname">Author's name:</label>
+                <input type="text" id="aname" name="aname" required><br>
+            </div>
+            <div class="input-container">
+                <label for="pages">Pages:</label>
+                <input type="number" id="pages" name="pages"><br>
+            </div>
+            <div class="status-container">
+                    <label>Status:</label> <br>
+                    <input type="radio" id="read" name="status" value="Read" required>
+                    <label for="read">I have read this book</label> <br>
+                    <input type="radio" id="not-read" name="status" value="Not Read">
+                    <label for="not-read">I have not read this book</label>
+            </div>
+            <input type="submit" value="Submit"> <br>
+            
+        </form>
+    </dialog>
+    
+    <button> Add a Book </button>
+</div>
+
 </body>
 </html>
